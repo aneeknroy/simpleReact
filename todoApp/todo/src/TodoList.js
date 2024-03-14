@@ -2,6 +2,21 @@ import React, { Component } from "react";
 import TodoItem from "./TodoItem";
 import './TodoList.css'
 
+
+// TODO list features
+
+/*
+    1. Edit Feature (DONE)
+    2. Mark Todo Items as complete
+    3. Due Dates & Priority Status
+    4. Multiple todo lists
+    5. Drag & Drop Reordering
+    6. Search and Filter
+    7. User Authentication & Sharing
+
+
+*/
+
 // Define a class component named TodoList that extends Component
 class TodoList extends Component {
     // Initialize state with an array todos to store todo items and newTodo to store the value of the new todo input
@@ -82,12 +97,14 @@ class TodoList extends Component {
                         <div className="todo-item" key={index}>
                             <span>{todo}</span>
                             <button className="todo-delete" onClick={() => this.handleDeleteTodo(index)}>Delete</button>
+                            
                             <button className="todo-edit" onClick={() => {
                                 const newText = prompt("Enter new item", todo);
                                 if (newText !== null) {
                                     this.handleEditTodo(index, newText);
                                 }
                             }}>Edit</button> 
+
                         </div>
                     ))}
                 </div>
