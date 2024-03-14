@@ -61,13 +61,23 @@ class TodoList extends Component {
         this.setState({ todos: updatedTodos });
     };
 
-    handleEditTodo = (index, newText) => {
+    handleEditTodo = (index) => {
         // Destructure todos from state
         const { todos } = this.state;
 
         const updatedTodos = [...todos];
 
         updatedTodos[index] = newText;
+
+        this.setState({ todos: updatedTodos});
+    }
+
+    handleCompletedTodo = (index) => {
+        const { todos } = this.state;
+
+        const updatedTodos = [...todos];
+
+        updatedTodos[index] = "Completed";
 
         this.setState({ todos: updatedTodos});
     }
@@ -94,7 +104,7 @@ class TodoList extends Component {
                 <div className="todo-list">
                     {todos.map((todo, index) => (
                         <div className="todo-item" key={index}>
-                            <span>{todo}</span>
+                            <span style={{ textDecoration: isCompleted ? 'line-through' : 'none', color: isCompleted ? 'green' : 'black'}}>{todo}</span>
                             <button className="todo-delete" onClick={() => this.handleDeleteTodo(index)}>Delete</button>
                             
                             <button className="todo-edit" onClick={() => {
@@ -104,6 +114,8 @@ class TodoList extends Component {
                                 }
                             }}>Edit</button> 
 
+                            <button className="todo-completed" onClick={() => this.handleCompletedTodo(index)}></button>
+
                         </div>
                     ))}
                 </div>
@@ -112,5 +124,5 @@ class TodoList extends Component {
         );
     }
 }
-
+//{isCompleted ? 'Undo' : 'Complete'}
 export default TodoList;
