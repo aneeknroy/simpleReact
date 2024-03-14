@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useState, useEffect } from 'react'
 import TodoItem from "./TodoItem";
 import './TodoList.css'
 
@@ -19,10 +20,20 @@ import './TodoList.css'
 // Define a class component named TodoList that extends Component
 class TodoList extends Component {
     // Initialize state with an array todos to store todo items and newTodo to store the value of the new todo input
-    state = {
-        todos: [],
-        newTodo: ''
-    };
+    // state = {
+    //     todos: [],
+    //     newTodo: '',
+    //     isCompleted: false
+    // };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            todos: [],
+            newTodo: '',
+        };
+
+    }
 
     // Method to handle input change in the new todo input field
     handleInputChange = event => {
@@ -61,7 +72,7 @@ class TodoList extends Component {
         this.setState({ todos: updatedTodos });
     };
 
-    handleEditTodo = (index) => {
+    handleEditTodo = (index, newText) => {
         // Destructure todos from state
         const { todos } = this.state;
 
@@ -75,12 +86,12 @@ class TodoList extends Component {
     handleCompletedTodo = (index) => {
         const { todos } = this.state;
 
-        const updatedTodos = [...todos];
-
-        updatedTodos[index] = "Completed";
-
-        this.setState({ todos: updatedTodos});
+        todos[index].isCompleted = true;
     }
+
+    // handleClick = () => {
+    //     this.setState({ color: 'green' });
+    // }
 
     // Render method to render the TodoList component
     render() {
@@ -104,7 +115,9 @@ class TodoList extends Component {
                 <div className="todo-list">
                     {todos.map((todo, index) => (
                         <div className="todo-item" key={index}>
-                            <span style={{ textDecoration: isCompleted ? 'line-through' : 'none', color: isCompleted ? 'green' : 'black'}}>{todo}</span>
+
+                            <span> {todo} </span>
+
                             <button className="todo-delete" onClick={() => this.handleDeleteTodo(index)}>Delete</button>
                             
                             <button className="todo-edit" onClick={() => {
@@ -114,7 +127,10 @@ class TodoList extends Component {
                                 }
                             }}>Edit</button> 
 
-                            <button className="todo-completed" onClick={() => this.handleCompletedTodo(index)}></button>
+                            <button className="todo-completed">
+                                Done
+                            </button>
+
 
                         </div>
                     ))}
@@ -124,5 +140,9 @@ class TodoList extends Component {
         );
     }
 }
-//{isCompleted ? 'Undo' : 'Complete'}
+//{isCompleted ? 'Undo' : 'Complete'} 
+//style={{ textDecoration: isCompleted ? 'line-through' : 'none', color: isCompleted ? 'green' : 'black'}}
+//  <!--button className="todo-completed" onClick={() => this.handleCompletedTodo(index, isCompleted)}-->
+// onClick={() => this.handleCompletedTodo(index)
+
 export default TodoList;

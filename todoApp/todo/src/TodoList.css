@@ -54,7 +54,11 @@
     cursor: pointer;
   }
   
-  .completed {
-    text-decoration: line-through;
-    color: green;
+  .todo-completed {
+    background-color: green;
+    border-radius: 3px;
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
   }
