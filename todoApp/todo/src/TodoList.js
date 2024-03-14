@@ -1,21 +1,30 @@
 import React, { Component } from "react";
 import TodoItem from "./TodoItem";
+import './TodoList.css'
 
+// Define a class component named TodoList that extends Component
 class TodoList extends Component {
+    // Initialize state with an array todos to store todo items and newTodo to store the value of the new todo input
     state = {
         todos: [],
         newTodo: ''
     };
 
-    // FUNCTION :  Arrow function & using this to set the newTodo value
+    // Method to handle input change in the new todo input field
     handleInputChange = event => {
+        // Update the state with the new value typed in the input field
         this.setState({ newTodo: event.target.value });
     }
 
-    // FUNCTION :  Adding the todo to the list
+
+    // Method to add a new todo item to the todos array    
     handleAddTodo = () => {
+        // Destructure todos and newTodo from state
         const { todos, newTodo } = this.state;
+
+        // Check if the new todo is not empty (trimmed value)
         if (newTodo.trim() !== ''){
+            // If not empty, add the new todo to the todos array in state and reset the newTodo state
             this.setState({
                 todos: [...todos, newTodo],
                 newTodo: ''
@@ -23,33 +32,49 @@ class TodoList extends Component {
         }
     };
 
-    // FUNCTION :  Deleting the todo to the list
-    handleDeleteTodo = () => {
+    // Method to delete a todo item from the todos array    
+    handleDeleteTodo = index => {
+        // Destructure todos from state
         const { todos } = this.state;
+
+        // Create a copy of todos array
         const updatedTodos = [...todos];
+
+        // Remove the todo item at the specified index from the copied array
         updatedTodos.splice(index, 1);
+
+        // Update the state with updated todos array
         this.setState({ todos: updatedTodos });
     };
 
-
+    // Render method to render the TodoList component
     render() {
+        // Destructure todos and newTodo from state
         const { todos, newTodo } = this.state;
+
+        // Return JSX to render the TodoList component
         return (
-            <div>
+            <div className="todo-list-container">
+
                 <h2>Todo List</h2>
+
                 <input
                     type="text"
                     value={newTodo}
-                    onChange={this.handleInputChange}
+                    onChange={this.handleInputChange} // Call handleInputChange when input value changes
                 />
-                <button onClick={this.handleAddTodo}>Add Task</button>
-                {todos.map((todo, index) => (
-                    <TodoItem
-                        key={index}
-                        todo={todo}
-                        onDelete={() => this.handleDeleteTodo(index)}
-                    />
-                ))};
+
+                <button className="todo-button" onClick={this.handleAddTodo}>Add Task</button>
+                
+                <div className="todo-list">
+                    {todos.map((todo, index) => (
+                        <div className="todo-item" key={index}>
+                            <span>{todo}</span>
+                            <button className="todo-delete" onClick={() => this.handleDeleteTodo(index)}>Delete</button>
+                        </div>
+                    ))}
+                </div>
+                
             </div>
         );
     }
