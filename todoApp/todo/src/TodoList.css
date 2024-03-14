@@ -54,8 +54,17 @@
     cursor: pointer;
   }
   
-  .todo-completed {
+  .done {
     background-color: green;
+    border-radius: 3px;
+    padding: 5px 10px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .notCompleted {
+    background-color: purple;
     border-radius: 3px;
     padding: 5px 10px;
     border: none;

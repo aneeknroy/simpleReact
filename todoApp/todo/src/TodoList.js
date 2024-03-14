@@ -31,8 +31,9 @@ class TodoList extends Component {
         this.state = {
             todos: [],
             newTodo: '',
+            isCompleted: false
         };
-
+        
     }
 
     // Method to handle input change in the new todo input field
@@ -84,14 +85,19 @@ class TodoList extends Component {
     }
 
     handleCompletedTodo = (index) => {
+
+        // Destructure todos from state
         const { todos } = this.state;
 
-        todos[index].isCompleted = true;
+        const updatedTodos = [...todos];
+
+        // Update the todo item at the specified index with the new object
+        updatedTodos[index].completed = true;
+
+        this.setState({ todos: updatedTodos });
     }
 
-    // handleClick = () => {
-    //     this.setState({ color: 'green' });
-    // }
+    
 
     // Render method to render the TodoList component
     render() {
@@ -113,8 +119,10 @@ class TodoList extends Component {
                 <button className="todo-button" onClick={this.handleAddTodo}>Add Task</button>
                 
                 <div className="todo-list">
+
                     {todos.map((todo, index) => (
-                        <div className="todo-item" key={index}>
+
+                        <div key={index}>
 
                             <span> {todo} </span>
 
@@ -127,11 +135,13 @@ class TodoList extends Component {
                                 }
                             }}>Edit</button> 
 
-                            <button className="todo-completed">
-                                Done
+                            <button 
+                                className={currentColor === 'red' ? 'red' : 'green'}            
+                                onClick={handleButtonClick}
+                            >
+                                Press Me
                             </button>
-
-
+                            
                         </div>
                     ))}
                 </div>
@@ -144,5 +154,10 @@ class TodoList extends Component {
 //style={{ textDecoration: isCompleted ? 'line-through' : 'none', color: isCompleted ? 'green' : 'black'}}
 //  <!--button className="todo-completed" onClick={() => this.handleCompletedTodo(index, isCompleted)}-->
 // onClick={() => this.handleCompletedTodo(index)
+/*
+<button className={todo.completed ? 'done' : 'notCompleted' } onClick={() => this.handleCompletedTodo(index)}>
+                                x
+                            </button>
+*/
 
 export default TodoList;
