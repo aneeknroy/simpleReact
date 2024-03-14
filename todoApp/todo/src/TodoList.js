@@ -47,6 +47,17 @@ class TodoList extends Component {
         this.setState({ todos: updatedTodos });
     };
 
+    handleEditTodo = (index, newText) => {
+        // Destructure todos from state
+        const { todos } = this.state;
+
+        const updatedTodos = [...todos];
+
+        updatedTodos[index] = newText;
+
+        this.setState({ todos: updatedTodos});
+    }
+
     // Render method to render the TodoList component
     render() {
         // Destructure todos and newTodo from state
@@ -71,6 +82,12 @@ class TodoList extends Component {
                         <div className="todo-item" key={index}>
                             <span>{todo}</span>
                             <button className="todo-delete" onClick={() => this.handleDeleteTodo(index)}>Delete</button>
+                            <button className="todo-edit" onClick={() => {
+                                const newText = prompt("Enter new item", todo);
+                                if (newText !== null) {
+                                    this.handleEditTodo(index, newText);
+                                }
+                            }}>Edit</button> 
                         </div>
                     ))}
                 </div>
